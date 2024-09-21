@@ -13,11 +13,11 @@ const requestLogger = (req, res, next) => {
     const body = req.body && Object.keys(req.body).length ? JSON.stringify(req.body, null, 2) : 'No body';
 
     console.log(' ')
-    console.log('########### start request ###########')
+    console.log('########## Start Express Request ##########')
     console.log(`${readableTime}`);
     console.log(`${req.method} "${req.url}"`);
     console.log(`Body: ${body}`);
-    console.log('############ end request ############')
+    console.log('############ End Express request ###########')
     console.log(' ')
 
     next(); // Proceed to the next middleware or route handler
