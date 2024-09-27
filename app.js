@@ -1,10 +1,15 @@
 const express = require("express");
 require('dotenv').config();
+const cors = require("cors");
 const { createProxyMiddleware } = require("http-proxy-middleware");
 const requestLogger = require("./middleware/requestLogger");
 
 const app = express();
 app.use(requestLogger);
+
+app.use(cors({
+    origin: process.env.CLIENT_ORIGIN
+}));
 
 // process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
@@ -17,7 +22,8 @@ const routes = [
         changeOrigin: true,
         pathRewrite: { "^/data": "" },
         methods: ["GET", "POST", "PUT"],
-    }, {
+    },
+    {
         context: "/auth",
         target: process.env.DOTNET_SERVER_TARGET,
         secure: true,
